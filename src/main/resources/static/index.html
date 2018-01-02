@@ -1,0 +1,54 @@
+<html ng-app="todoApp">
+<head>
+<title>TODOs</title>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/3.3.7-1/css/bootstrap.css">
+</head>
+<body ng-controller="TodoController as TodoCtrl" ng-cloak>
+	<div class="container">
+		<div class="panel panel-success">
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="TodoCtrl.todo.description" placeholder="Add a to-do..." onkeydown = "if (event.keyCode == 13) document.getElementById('btnAddTodo').click()" >
+				<span class="input-group-btn">
+					<button id="btnAddTodo" class="btn btn-success" type="button" ng-click="TodoCtrl.addTodo()">Add</button>
+				</span>
+			</div>
+			<!-- /input-group -->
+		</div>
+
+		<div class="panel panel-info">
+			<div class="panel-heading">TODO List</div>
+			<table class="table">
+				<tbody>
+					<tr ng-repeat="todo in TodoCtrl.todos">
+						<td>
+						<input type="checkbox" ng-checked="todo.completed" ng-click="TodoCtrl.setCompleted(todo)">
+						
+						<span ng-bind="todo.description" ng-hide="TodoCtrl.editMode"></span>
+						<span class="btn-warning" ng-show="todo.completed">MARKED COMPLETED</span>
+						
+						<input type="text" class="form-control" ng-model="todo.description" ng-show="TodoCtrl.editMode">
+						<td />
+						<td align="right">
+							<button class="btn btn-warning" type="button" ng-click="TodoCtrl.editMode=true" ng-hide="TodoCtrl.editMode">Edit</button>
+							<button class="btn btn-warning" type="button" ng-click="TodoCtrl.editTodo(todo)" ng-show="TodoCtrl.editMode">Update</button>
+							<button class="btn btn-danger" type="button"  ng-click="TodoCtrl.deleteTodo(todo.id)">Delete</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="/webjars/jquery/3.1.1-1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+	<script src="/webjars/angularjs/1.6.2/angular.min.js"></script>
+	<script src="/webjars/angularjs/1.6.2/angular-route.js"></script>
+
+	<script src="/js/app.js"></script>
+	<script src="/js/controller/todo.controller.js"></script>
+	<script src="/js/service/todo.service.js"></script>
+	<script src="/js/service/appconstant.service.js"></script>
+
+</body>
+</html>
